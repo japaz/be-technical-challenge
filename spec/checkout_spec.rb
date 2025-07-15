@@ -14,4 +14,11 @@ RSpec.describe Checkout do
     subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
     expect(subject.total).to eq(311)
   end
+
+  it "returns the correct total for a basket with multiple items" do
+    subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+    subject.add_item(product_code: "SR1", name: "Strawberries", price: 500)
+    subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+    expect(subject.total).to eq(1934)
+  end
 end
