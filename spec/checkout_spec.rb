@@ -15,10 +15,41 @@ RSpec.describe Checkout do
     expect(subject.total).to eq(311)
   end
 
-  it "returns the correct total for a basket with multiple items" do
-    subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
-    subject.add_item(product_code: "SR1", name: "Strawberries", price: 500)
-    subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
-    expect(subject.total).to eq(1934)
+  context "when there is more than one green tea in the basket" do
+    it "returns the correct total for a basket with multiple items" do
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "SR1", name: "Strawberries", price: 500)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      expect(subject.total).to eq(1934)
+    end
+
+    it "returns just the price for one green tea if there are two in the basket" do
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      expect(subject.total).to eq(311)
+    end
+
+    it "returns the price for two green teas if there are three in the basket" do
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      expect(subject.total).to eq(622)
+    end
+
+    it "returns the price for two geen teas if there are four in the basket" do
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      expect(subject.total).to eq(622)
+    end
+
+    it "returns the correct total for a basket with multiple items including green tea" do
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      subject.add_item(product_code: "SR1", name: "Strawberries", price: 500)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "GR1", name: "Green Tea", price: 311)
+      expect(subject.total).to eq(1934)
+    end
   end
 end
