@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Checkout
   def total
     items.sum(&:price)
