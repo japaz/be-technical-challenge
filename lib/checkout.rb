@@ -4,11 +4,16 @@ require_relative "pricing_rules/discount_for_strawberries_rule"
 require_relative "pricing_rules/discount_for_coffee_rule"
 
 class Checkout
+  def initialize(rules: [])
+    @rules = rules
+  end
+
   def total
     total = items.sum(&:price)
-    total = PricingRules::BuyOneGetOneFreeRule.new.apply(items:, total:)
-    total = PricingRules::DiscountForStrawberriesRule.new.apply(items:, total:)
-    PricingRules::DiscountForCoffeeRule.new.apply(items:, total:)
+    @rules.each do |rule|
+      total = rule.apply(items: items, total: total)
+    end
+    total
   end
 
   def add_item(product_code:, name:, price:)

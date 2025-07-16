@@ -2,9 +2,18 @@
 
 require "rspec"
 require_relative "../lib/checkout"
+require_relative '../lib/pricing_rules/buy_one_get_one_free_rule'
+require_relative '../lib/pricing_rules/discount_for_strawberries_rule'
+require_relative '../lib/pricing_rules/discount_for_coffee_rule'
 
 RSpec.describe Checkout do
-  subject { described_class.new }
+  subject do
+    described_class.new(rules: [
+      PricingRules::BuyOneGetOneFreeRule.new,
+      PricingRules::DiscountForStrawberriesRule.new,
+      PricingRules::DiscountForCoffeeRule.new
+    ])
+  end
 
   it "has a total of 0 for an empty basket" do
     expect(subject.total).to eq(0)
