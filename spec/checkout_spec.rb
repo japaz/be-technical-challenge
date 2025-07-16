@@ -77,4 +77,29 @@ RSpec.describe Checkout do
       expect(subject.total).to eq(1661)
     end
   end
+
+  context "when there are more than 3 coffee in the basket" do
+    it "returns the reduced price for coffee when there are 3" do
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      expect(subject.total).to eq(2246)
+    end
+
+    it "returns the reduced price for coffee when there are more than 3" do
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      expect(subject.total).to eq(2995)
+    end
+
+    it "returns the reduced price for coffee when there are more than 3 and strawberries" do
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "CF1", name: "Coffe", price: 1123)
+      subject.add_item(product_code: "SR1", name: "Strawberries", price: 500)
+      expect(subject.total).to eq(2746)
+    end
+  end
 end
