@@ -2,7 +2,7 @@
 
 module PricingRules
   class PricingRule
-    def apply(items:, total_price:)
+    def apply(checkout:, total:)
       raise NotImplementedError, "Subclasses must implement the apply method"
     end
   end
