@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../pricing_rules/pricing_rule"
+require_relative "./pricing_rule"
 
 module PricingRules
   class BuyOneGetOneFreeRule < PricingRule

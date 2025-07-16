@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 require_relative "pricing_rules/buy_one_get_one_free_rule"
+require_relative "pricing_rules/discount_for_strawberries_rule"
 
 class Checkout
   def total
     total = items.sum(&:price)
     total = PricingRules::BuyOneGetOneFreeRule.new.apply(items:, total:)
-    total = apply_discount_for_strawberries(total)
+    total = PricingRules::DiscountForStrawberriesRule.new.apply(items:, total:)
     apply_discount_for_coffees(total)
   end
 
@@ -24,11 +25,6 @@ class Checkout
   end
 
   private
-
-  def apply_discount_for_strawberries(total)
-    strawberries_count = items.count { |item| item.product_code == "SR1" }
-    strawberries_count >= 3 ? total - strawberries_count * 50 : total
-  end
 
   def apply_discount_for_coffees(total)
     coffee_count = items.count { |item| item.product_code == "CF1" }
