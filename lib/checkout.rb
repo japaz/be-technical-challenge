@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+require_relative "pricing_rules/buy_one_get_one_free_rule"
 
 class Checkout
   def total
     total = items.sum(&:price)
-    total = apply_buy_one_get_one_free_discount_for_green_tea(total)
+    total = PricingRules::BuyOneGetOneFreeRule.new.apply(items:, total:)
     total = apply_discount_for_strawberries(total)
     apply_discount_for_coffees(total)
   end
@@ -23,14 +24,6 @@ class Checkout
   end
 
   private
-
-  def apply_buy_one_get_one_free_discount_for_green_tea(total)
-    green_tea_count = items.count { |item| item.product_code == "GR1" }
-    if green_tea_count > 1
-      total -= (green_tea_count / 2) * items.find { |item| item.product_code == "GR1" }.price
-    end
-    total
-  end
 
   def apply_discount_for_strawberries(total)
     strawberries_count = items.count { |item| item.product_code == "SR1" }
