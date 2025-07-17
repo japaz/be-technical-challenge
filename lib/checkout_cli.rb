@@ -3,6 +3,9 @@
 
 require_relative 'checkout'
 
+require_relative 'pricing_rules/buy_one_get_one_free_rule'
+require_relative 'pricing_rules/bulk_discount_rule'
+
 class CheckoutCLI
   def initialize(checkout)
     @checkout = checkout
