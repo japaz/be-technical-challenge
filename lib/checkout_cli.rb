@@ -33,9 +33,9 @@ end
 
 if $PROGRAM_NAME == __FILE__
   checkout = Checkout.new(rules: [
-    PricingRules::BuyOneGetOneFreeRule.new,
-    PricingRules::DiscountForStrawberriesRule.new,
-    PricingRules::DiscountForCoffeeRule.new
+    PricingRules::BuyOneGetOneFreeRule.new(product_code: 'GR1'),
+    PricingRules::BulkDiscountRule.new(product_code: 'SR1', min_quantity: 3, new_price_cents: 450),
+    PricingRules::BulkDiscountRule.new(product_code: 'CF1', min_quantity: 3, discount_multiplier: 2.0 / 3.0)
   ]) # Add pricing rules as needed
   cli = CheckoutCLI.new(checkout)
   cli.run

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "pricing_rules/buy_one_get_one_free_rule"
-require_relative "pricing_rules/discount_for_strawberries_rule"
-require_relative "pricing_rules/discount_for_coffee_rule"
+require_relative "pricing_rules/bulk_discount_rule"
 require_relative "product_catalog"
 
 class Checkout

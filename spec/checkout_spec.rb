@@ -3,15 +3,14 @@
 require "rspec"
 require_relative "../lib/checkout"
 require_relative '../lib/pricing_rules/buy_one_get_one_free_rule'
-require_relative '../lib/pricing_rules/discount_for_strawberries_rule'
-require_relative '../lib/pricing_rules/discount_for_coffee_rule'
+require_relative '../lib/pricing_rules/bulk_discount_rule'
 
 RSpec.describe Checkout do
   subject do
     described_class.new(rules: [
       PricingRules::BuyOneGetOneFreeRule.new("GR1"),
-      PricingRules::DiscountForStrawberriesRule.new,
-      PricingRules::DiscountForCoffeeRule.new
+      PricingRules::BulkDiscountRule.new(product_code: 'SR1', min_quantity: 3, new_price_cents: 450),
+      PricingRules::BulkDiscountRule.new(product_code: 'CF1', min_quantity: 3, discount_multiplier: 2.0 / 3.0)
     ])
   end
 
