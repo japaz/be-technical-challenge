@@ -110,4 +110,29 @@ RSpec.describe Checkout do
       expect(subject.total).to eq(2746)
     end
   end
+
+  context "with test data from the README" do
+    it "calculates the total for basket: GR1,GR1" do
+      subject.add_item("GR1")
+      subject.add_item("GR1")
+      expect(subject.total).to eq(311)
+    end
+
+    it "calculates the total for the basket: SR1,SR1,GR1,SR1" do
+      subject.add_item("SR1")
+      subject.add_item("SR1")
+      subject.add_item("GR1")
+      subject.add_item("SR1")
+      expect(subject.total).to eq(1661)
+    end
+
+    it "calculates the total for the basket: GR1,CF1,SR1,CF1,CF1" do
+      subject.add_item("GR1")
+      subject.add_item("CF1")
+      subject.add_item("SR1")
+      subject.add_item("CF1")
+      subject.add_item("CF1")
+      expect(subject.total).to eq(3057)
+    end
+  end
 end
