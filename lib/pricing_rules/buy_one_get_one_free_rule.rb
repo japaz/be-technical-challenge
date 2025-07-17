@@ -4,11 +4,15 @@ require_relative "./pricing_rule"
 
 module PricingRules
   class BuyOneGetOneFreeRule < PricingRule
+    def initialize(product_code)
+      @product_code = product_code
+    end
+
     def apply(checkout:, total:)
-      green_tea_count = checkout.items.count { |item| item == "GR1" }
-      green_tea_price = checkout.product_catalog.find("GR1").price_cents
-      if green_tea_count > 1
-        total -= (green_tea_count / 2) * green_tea_price
+      product_count = checkout.items.count { |item| item == @product_code }
+      product_price = checkout.product_catalog.find(@product_code).price_cents
+      if product_count > 1
+        total -= (product_count / 2) * product_price
       end
       total
     end

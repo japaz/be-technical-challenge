@@ -9,7 +9,7 @@ require_relative '../lib/pricing_rules/discount_for_coffee_rule'
 RSpec.describe Checkout do
   subject do
     described_class.new(rules: [
-      PricingRules::BuyOneGetOneFreeRule.new,
+      PricingRules::BuyOneGetOneFreeRule.new("GR1"),
       PricingRules::DiscountForStrawberriesRule.new,
       PricingRules::DiscountForCoffeeRule.new
     ])
