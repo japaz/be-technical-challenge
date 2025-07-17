@@ -11,8 +11,10 @@ class DummyRule
 end
 
 describe CheckoutCLI do
-  let(:checkout) { Checkout.new(rules: [DummyRule.new]) }
-  let(:cli) { CheckoutCLI.new(checkout) }
+  let(:checkout) { Checkout.new(rules: []) }
+  let(:cart) { Cart.new}
+  let(:product_catalog) { ProductCatalog.new }
+  let(:cli) { CheckoutCLI.new(checkout, cart, product_catalog ) }
 
   describe '#run' do
     it 'adds items and computes total (integration test)' do

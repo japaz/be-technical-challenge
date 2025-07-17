@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./pricing_rule"
+require_relative 'pricing_rule'
 
 module PricingRules
   class BuyOneGetOneFreeRule < PricingRule
@@ -8,13 +8,12 @@ module PricingRules
       @product_code = product_code
     end
 
-    def apply(checkout:, total:)
-      product_count = checkout.items.count { |item| item == @product_code }
-      product_price = checkout.product_catalog.find(@product_code).price_cents
-      if product_count > 1
-        total -= (product_count / 2) * product_price
-      end
-      total
+    def calculate_discount(cart:, catalog:)
+      product_count = cart.items.count { |item| item == @product_code }
+      return 0 if product_count < 2
+
+      product_price = catalog.find(@product_code).price_cents
+      (product_count / 2) * product_price
     end
   end
 end

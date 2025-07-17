@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 require_relative 'product'
 
-# In memory product catalog for the sake of simplicity.
+# The ProductCatalog class provides an in-memory catalog of available products.
+# It allows lookup of products by their code and is used for pricing and validation.
 class ProductCatalog
   PRODUCTS = {
     'GR1' => Product.new(code: 'GR1', name: 'Green Tea', price_cents: 311),
