@@ -9,7 +9,7 @@ describe PricingRules::BuyOneGetOneFreeRule do
   let(:product_code) { "GR1" }
   let(:green_tea) { Product.new(code: product_code, name: "Green Tea", price_cents: 100) }
   let(:product_catalog) { ProductCatalog.new }
-  let(:rule) { described_class.new(product_code) }
+  let(:rule) { described_class.new(product_code: product_code) }
 
   let(:checkout) do
     double(

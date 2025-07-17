@@ -4,7 +4,7 @@ require_relative "./pricing_rule"
 
 module PricingRules
   class BuyOneGetOneFreeRule < PricingRule
-    def initialize(product_code)
+    def initialize(product_code:)
       @product_code = product_code
     end
 

@@ -8,7 +8,7 @@ require_relative '../lib/pricing_rules/bulk_discount_rule'
 RSpec.describe Checkout do
   subject do
     described_class.new(rules: [
-      PricingRules::BuyOneGetOneFreeRule.new("GR1"),
+      PricingRules::BuyOneGetOneFreeRule.new(product_code: "GR1"),
       PricingRules::BulkDiscountRule.new(product_code: 'SR1', min_quantity: 3, new_price_cents: 450),
       PricingRules::BulkDiscountRule.new(product_code: 'CF1', min_quantity: 3, discount_multiplier: 2.0 / 3.0)
     ])
